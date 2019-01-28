@@ -1,46 +1,58 @@
+import { pizzaTab } from "./pizza";
+import { spaTab } from "./spagtti";
+import { fruitTab } from "./fruit";
 /* eslint-disable no-undef */
 const content = document.getElementById("content");
 const tabContainer = document.createElement("div");
+const body = document.querySelector("body");
 content.appendChild(tabContainer);
 tabContainer.setAttribute("id", "tab-container");
-// about tab set up
-const aboutTab = document.createElement("div");
-aboutTab.setAttribute("id", "aboutTab");
-aboutTab.appendChild(document.createTextNode("About"));
-aboutTab.setAttribute("class", "tab");
-aboutTab.addEventListener("click", () => {
-  clickTab(aboutTab);
-});
-// contact tab set up
-const contactTab = document.createElement("div");
-contactTab.setAttribute("id", "contactTab");
-contactTab.setAttribute("class", "tab");
-contactTab.appendChild(document.createTextNode("Contact"));
-contactTab.addEventListener("click", () => {
-  clickTab(contactTab);
-});
-// menu tab set up
-const menuTab = document.createElement("div");
-menuTab.setAttribute("id", "menuTab");
-menuTab.appendChild(document.createTextNode("Menu"));
-menuTab.setAttribute("class", "tab");
-menuTab.addEventListener("click", () => {
-  clickTab(menuTab);
-});
-tabContainer.appendChild(aboutTab);
-tabContainer.appendChild(contactTab);
-tabContainer.appendChild(menuTab);
 
-const clickTab = tabNode => {
+const clickTab = (tabNode, url) => {
+  body.style.background = url;
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundSize = "cover";
   switch (tabNode) {
-    case aboutTab:
+    case fruitTab:
+      fruitTab.classList.add("selectState");
+      pizzaTab.classList.remove("selectState");
+      spaTab.classList.remove("selectState");
       break;
-    case contactTab:
+    case pizzaTab:
+      fruitTab.classList.remove("selectState");
+      pizzaTab.classList.add("selectState");
+      spaTab.classList.remove("selectState");
       break;
-    case menuTab:
+    case spaTab:
+      fruitTab.classList.remove("selectState");
+      pizzaTab.classList.remove("selectState");
+      spaTab.classList.add("selectState");
       break;
-
     default:
       break;
   }
 };
+
+// about tab set up
+fruitTab.addEventListener("click", () => {
+  clickTab(fruitTab, "url('../imgs/fruit.jpg')");
+});
+
+pizzaTab.addEventListener("click", () => {
+  clickTab(pizzaTab, "url('../imgs/pizza.jpg')");
+});
+// menu tab set up
+
+spaTab.addEventListener("click", () => {
+  clickTab(spaTab, "url('../imgs/spaghetti.jpeg')");
+});
+
+tabContainer.appendChild(spaTab);
+tabContainer.appendChild(fruitTab);
+tabContainer.appendChild(pizzaTab);
+
+// default click
+clickTab(
+  spaTab,
+  "url('https://img.taste.com.au/hyE5dSN3/taste/2016/11/spaghetti-with-meatballs-and-spicy-tomato-sauce-102298-1.jpeg')"
+);
